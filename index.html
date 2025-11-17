@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <title>抽選アプリ</title>
+    <link rel="stylesheet" href="style.css">
+</head>    
+<body>
+    <header>
+       <img src = "images/money_bitcoin_whale.png" class = "header-logo"> 
+       <span class = "header-title">ロト6</span>
+    </header>
+
+    <section>
+        <h2 id = "title">
+            <img src = "images/money_bag_yen.png" class = "title-icon">
+            抽選結果
+        </h2>
+        <div id="numbers" class="numbers-box"></div>
+        <button onclick="draw()">抽選する</button>
+        <button onclick="downloadHistory()">保存する</button>
+    </section>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
