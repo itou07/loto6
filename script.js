@@ -7,6 +7,8 @@ function draw() {
         if (!nums.includes(n))nums.push(n);
     }
 
+    nums.sort((a,b) => a - b);
+
     const box = document.getElementById("numbers");
     box.innerHTML = "";
 
