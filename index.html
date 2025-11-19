@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,18 +8,27 @@
 </head>    
 <body>
     <header>
-       <img src = "money_bitcoin_whale.png" class = "header-logo"> 
+       <img src = "images/money_bitcoin_whale.png" class = "header-logo"> 
        <span class = "header-title">ロト6</span>
     </header>
 
     <section>
         <h2 id = "title">
-            <img src = "money_bag_yen.png" class = "title-icon">
+            <img src = "images/money_bag_yen.png" class = "title-icon">
             抽選結果
         </h2>
-        <div id="numbers" class="numbers-box"></div>
-        <button onclick="draw()">抽選する</button>
-        <button onclick="downloadHistory()">保存する</button>
+
+        <!-- 抽選表示-->
+        <div id="results" class="numbers-box"></div>
+        
+        <!--操作ボタン-->
+        <button id = "drawBtn">抽選する</button>
+        <button id = "saveBtn">保存する</button>
+        <button id = "downloadBtn">ダウンロード</button>
+
+        <!--履歴表示-->
+        <h2>履歴</h2>
+        <div id = "history" style = "white-space: pre-wrap;"></div>
     </section>
 
     <script src="script.js" defer></script>
