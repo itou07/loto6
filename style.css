@@ -114,6 +114,13 @@ button:hover {
     font-weight: bold;
 }
 
+#history {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
 .title-icon {
     width: 30px;
     height: 30px;
