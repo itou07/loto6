@@ -1,10 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 履歴を保持する配列（テキスト行単位）
+  // 履歴を保持する配列
   const historyList = []; 
   let lastNumbers = [];
 
-  // 共通処理：ボール描画
+  // ボール描画
   function renderNumbersTo(element, nums) {
     element.innerHTML = "";
     nums.forEach(n => {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderNumbersTo(resultsDiv, nums);
   });
 
-  // 履歴に保存（画面と配列の両方に）
+  // 履歴に保存
   document.getElementById("saveBtn").addEventListener("click", () => {
     if (!lastNumbers || lastNumbers.length === 0) {
       alert("先に抽選してください");
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     URL.revokeObjectURL(url);
   });
 
-  // アニメーション用ヘルパー（大文字小文字に注意）
+  // アニメーション用ヘルパー
   function animateBall(ball) {
     // リセットしてから再適用する
     ball.style.animation = "none";
