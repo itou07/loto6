@@ -1,52 +1,84 @@
-let history = [];
 
-function draw() {
+document.addEventListener("DOMContentLoaded", () => {
+  // 履歴を保持する配列（テキスト行単位）
+  const historyList = []; 
+  let lastNumbers = [];
+
+  // 共通処理：ボール描画
+  function renderNumbersTo(element, nums) {
+    element.innerHTML = "";
+    nums.forEach(n => {
+      const div = document.createElement("div");
+      div.className = "ball";
+      div.textContent = n;
+      div.style.background = getBallColor(n);
+      element.appendChild(div);
+      animateBall(div);
+    });
+  }
+
+  // 抽選
+  document.getElementById("drawBtn").addEventListener("click", () => {
     const nums = [];
     while (nums.length < 6) {
-        const n =Math.floor(Math.random() * 43) + 1;
-        if (!nums.includes(n))nums.push(n);
+      const n = Math.floor(Math.random() * 43) + 1;
+      if (!nums.includes(n)) nums.push(n);
     }
+    nums.sort((a, b) => a - b);
+    lastNumbers = nums.slice();
 
-    nums.sort((a,b) => a - b);
+    const resultsDiv = document.getElementById("results");
+    renderNumbersTo(resultsDiv, nums);
+  });
 
-    const box = document.getElementById("numbers");
-    box.innerHTML = "";
+  // 履歴に保存（画面と配列の両方に）
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    if (!lastNumbers || lastNumbers.length === 0) {
+      alert("先に抽選してください");
+      return;
+    }
+    const line = lastNumbers.join(", ");
+    historyList.push(line);
 
-    nums.forEach(n => {
-        const div = document.createElement("div");
-        div.className = "ball"
-        div.textContent = n;
-        box.appendChild(div);
-        div.style.background = getBallColor(n);
-        animateBall(div);
-    });
+    // 画面の履歴表示を更新
+    const historyDiv = document.getElementById("history");
+    const entry = document.createElement("div");
+    entry.textContent = line;
+    historyDiv.appendChild(entry);
+  });
 
-    history.push(nums.join(", "));
-}
-
-function downloadHistory(){
-    const text = history.join("/n");
-    const blob = new Blob([text], {type: "text/plain"});
+  // ダウンロード（履歴全体を1つのテキストファイルとして）
+  document.getElementById("downloadBtn").addEventListener("click", () => {
+    if (historyList.length === 0) {
+      alert("履歴がありません");
+      return;
+    }
+    const text = historyList.join("\n");
+    const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-
     const a = document.createElement("a");
     a.href = url;
-    a.download = "numbers.txt";
+    a.download = "numbers_history.txt";
     a.click();
     URL.revokeObjectURL(url);
-}
+  });
 
-function animateBall(ball) {
-    ball.style.animation = 'none';
-    void ball.offsetwidth;
-    ball.style.animation = '';
-}
+  // アニメーション用ヘルパー（大文字小文字に注意）
+  function animateBall(ball) {
+    // リセットしてから再適用する
+    ball.style.animation = "none";
+    // 強制再描画でリセット
+    void ball.offsetWidth;
+    ball.style.animation = "";
+  }
 
-function getBallColor(n){
+  // 色分け関数
+  function getBallColor(n) {
     if (n <= 7) return "#f7d348";
     if (n <= 14) return "#4a90e2";
     if (n <= 21) return "#e94f4f";
     if (n <= 28) return "#4caf50";
     if (n <= 35) return "#333";
     return "#9b59b6";
-}
+  }
+});
